@@ -70,6 +70,7 @@
             txtBox.TabIndex = 3;
             txtBox.MouseClick += txtBox_MouseClick;
             txtBox.TextChanged += txtBox_TextChanged;
+            this.txtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBox_KeyDown);
             // 
             // Form1
             // 

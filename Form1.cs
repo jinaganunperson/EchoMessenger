@@ -27,10 +27,15 @@ namespace EchoMessenger
         private void btnInput_MouseClick(object sender, MouseEventArgs e)
         {
             string typed_msg = txtBox.Text;
-
-            // § ListBox에서 항목들을 담는 곳은 어디인가요? -> .Items
-            // § 새로운 항목을 추가하려면 어떻게 해야 하나요? -> .Add() 메서드
-            if (!string.IsNullOrWhiteSpace(typed_msg)) // 빈 내용이 아닐 때만 추가
+            if (!string.IsNullOrWhiteSpace(typed_msg))
+            {
+                listBox1.Items.Add(typed_msg);
+                txtBox.Clear();
+                txtBox.Focus();
+            }
+                // § ListBox에서 항목들을 담는 곳은 어디인가요? -> .Items
+                // § 새로운 항목을 추가하려면 어떻게 해야 하나요? -> .Add() 메서드
+                if (!string.IsNullOrWhiteSpace(typed_msg)) // 빈 내용이 아닐 때만 추가
             {
                 listBox1.Items.Add(typed_msg);
 
@@ -39,6 +44,26 @@ namespace EchoMessenger
 
                 // 커서를 다시 텍스트박스로 (선택 사항)
                 txtBox.Focus();
+            }
+        }
+        // 이 메서드 이름이 Designer.cs에 적은 이름과 토씨 하나 안 틀리고 똑같아야 합니다.
+        private void txtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 1. 눌린 키가 엔터키인지 확인
+            if (e.KeyCode == Keys.Enter)
+            {
+                // 2. 버튼 클릭과 동일한 전송 로직 실행
+                string typed_msg = txtBox.Text;
+
+                if (!string.IsNullOrWhiteSpace(typed_msg))
+                {
+                    listBox1.Items.Add(typed_msg);
+                    txtBox.Clear();
+                    txtBox.Focus(); // 전송 후 바로 다시 입력할 수 있게 포커스 유지
+                }
+
+                // 3. 엔터 입력 시 '띵' 소리 나는 것 방지 (UX 개선)
+                e.SuppressKeyPress = true;
             }
         }
     }
