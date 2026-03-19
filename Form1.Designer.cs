@@ -75,6 +75,7 @@
             // 
             AutoScaleDimensions = new SizeF(15F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Info;
             ClientSize = new Size(800, 450);
             Controls.Add(txtBox);
             Controls.Add(listBox1);
