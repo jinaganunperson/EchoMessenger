@@ -48,7 +48,7 @@
             // 
             lblEchoMessenger.AutoSize = true;
             lblEchoMessenger.Font = new Font("휴먼편지체", 25.875F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            lblEchoMessenger.Location = new Point(61, 34);
+            lblEchoMessenger.Location = new Point(79, 34);
             lblEchoMessenger.Name = "lblEchoMessenger";
             lblEchoMessenger.Size = new Size(500, 81);
             lblEchoMessenger.TabIndex = 1;
@@ -70,7 +70,7 @@
             txtBox.TabIndex = 3;
             txtBox.MouseClick += txtBox_MouseClick;
             txtBox.TextChanged += txtBox_TextChanged;
-            this.txtBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBox_KeyDown);
+            txtBox.KeyDown += txtBox_KeyDown;
             // 
             // Form1
             // 
