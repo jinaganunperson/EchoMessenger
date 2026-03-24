@@ -60,6 +60,7 @@
             txtBox.Name = "txtBox";
             txtBox.Size = new Size(711, 42);
             txtBox.TabIndex = 2;
+            txtBox.KeyDown += txtBox_KeyDown;
             // 
             // listBox
             // 
