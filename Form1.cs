@@ -8,49 +8,80 @@ namespace EchoMessenger
         public Form1()
         {
             InitializeComponent();
+
+            // 사용자가 50자 넘게 입력은 할 수 있어야 경고창을 띄울 수 있으므로
+            // MaxLength를 제한하지 않거나 크게 설정합니다.
+            txtBox.MaxLength = 32767;
         }
 
-        // [핵심] 모든 전송 로직 (시간 결합 + 개수 업데이트 포함)
+        // [핵심] 메시지 전송 로직
         private void SendMessage()
         {
-            // 1. 공백 제거
+            // 1. 앞뒤 공백 제거
             string typedMsg = txtBox.Text.Trim();
 
-            // 2. 내용 확인
+            // 2. [검사] 50자를 초과했는지 확인
+            if (typedMsg.Length > 50)
+            {
+                // 50자 초과 시 경고 메시지 출력
+                MessageBox.Show("50자 이하만 입력해 주세요.", "알림");
+
+                // 전송을 하지 않고 함수를 종료(return)하여 리스트 추가를 막음
+                return;
+            }
+
+            // 3. 내용이 비어있지 않은 경우에만 전송 진행
             if (!string.IsNullOrWhiteSpace(typedMsg))
             {
-                // 3. 시간 정보 결합
                 string currentTime = DateTime.Now.ToString("HH:mm:ss");
-                string messageWithTime = $"[{currentTime}] {typedMsg}";
+                listBox.Items.Add($"[{currentTime}] {typedMsg}");
 
-                // 4. 리스트박스에 추가
-                listBox.Items.Add(messageWithTime);
-
-                // 5. [중요] 메시지 개수 실시간 업데이트
-                lblnum.Text = $"총 메시지: {listBox.Items.Count}개";
-
-                // 6. 마무리
+                UpdateCount();
                 txtBox.Clear();
                 txtBox.Focus();
             }
         }
 
-        // 버튼 클릭 시
-        private void btnInput_Click(object sender, EventArgs e)
+        private void UpdateCount()
         {
-            SendMessage();
+            lblnum.Text = $"총 메시지: {listBox.Items.Count}개";
         }
 
-        // 텍스트박스에서 엔터키 입력 시
+        private void btnInput_Click(object sender, EventArgs e) => SendMessage();
+
         private void txtBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                // 엔터키를 쳤을 때도 SendMessage()를 실행해야 숫자가 바뀝니다!
                 SendMessage();
-
-                // '띵' 소리 방지
                 e.SuppressKeyPress = true;
+            }
+        }
+
+        // 선택 삭제 버튼 (btnremove)
+        private void btnremove_Click(object sender, EventArgs e)
+        {
+            if (listBox.SelectedIndex != -1)
+            {
+                listBox.Items.RemoveAt(listBox.SelectedIndex);
+                UpdateCount();
+            }
+            else
+            {
+                MessageBox.Show("삭제할 메시지를 클릭해서 먼저 선택해 주세요!", "알림");
+            }
+        }
+
+        // 전체 삭제 버튼 (btnremoveall)
+        private void btnremoveall_Click(object sender, EventArgs e)
+        {
+            if (listBox.Items.Count > 0)
+            {
+                if (MessageBox.Show("모든 대화 기록을 지우시겠습니까?", "전체 삭제", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    listBox.Items.Clear();
+                    UpdateCount();
+                }
             }
         }
     }

@@ -33,11 +33,13 @@
             txtBox = new TextBox();
             listBox = new ListBox();
             lblnum = new Label();
+            btnremove = new Button();
+            btnremoveall = new Button();
             SuspendLayout();
             // 
             // btnInput
             // 
-            btnInput.Location = new Point(821, 493);
+            btnInput.Location = new Point(818, 450);
             btnInput.Name = "btnInput";
             btnInput.Size = new Size(132, 58);
             btnInput.TabIndex = 0;
@@ -80,11 +82,33 @@
             lblnum.TabIndex = 4;
             lblnum.Text = "label1";
             // 
+            // btnremove
+            // 
+            btnremove.Location = new Point(818, 514);
+            btnremove.Name = "btnremove";
+            btnremove.Size = new Size(132, 51);
+            btnremove.TabIndex = 5;
+            btnremove.Text = "삭제";
+            btnremove.UseVisualStyleBackColor = true;
+            btnremove.Click += btnremove_Click;
+            // 
+            // btnremoveall
+            // 
+            btnremoveall.Location = new Point(775, 64);
+            btnremoveall.Name = "btnremoveall";
+            btnremoveall.Size = new Size(197, 46);
+            btnremoveall.TabIndex = 6;
+            btnremoveall.Text = "대화 기록 삭제";
+            btnremoveall.UseVisualStyleBackColor = true;
+            btnremoveall.Click += btnremoveall_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1053, 620);
+            Controls.Add(btnremoveall);
+            Controls.Add(btnremove);
             Controls.Add(lblnum);
             Controls.Add(listBox);
             Controls.Add(txtBox);
@@ -103,5 +127,7 @@
         private TextBox txtBox;
         private ListBox listBox;
         private Label lblnum;
+        private Button btnremove;
+        private Button btnremoveall;
     }
 }
