@@ -32,6 +32,7 @@
             lbl = new Label();
             txtBox = new TextBox();
             listBox = new ListBox();
+            lblnum = new Label();
             SuspendLayout();
             // 
             // btnInput
@@ -70,11 +71,21 @@
             listBox.Size = new Size(802, 328);
             listBox.TabIndex = 3;
             // 
+            // lblnum
+            // 
+            lblnum.AutoSize = true;
+            lblnum.Location = new Point(61, 445);
+            lblnum.Name = "lblnum";
+            lblnum.Size = new Size(85, 36);
+            lblnum.TabIndex = 4;
+            lblnum.Text = "label1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(15F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1053, 620);
+            Controls.Add(lblnum);
             Controls.Add(listBox);
             Controls.Add(txtBox);
             Controls.Add(lbl);
@@ -91,5 +102,6 @@
         private Label lbl;
         private TextBox txtBox;
         private ListBox listBox;
+        private Label lblnum;
     }
 }

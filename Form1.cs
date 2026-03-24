@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace EchoMessenger
 {
     public partial class Form1 : Form
@@ -7,46 +10,44 @@ namespace EchoMessenger
             InitializeComponent();
         }
 
-        // [핵심] 전송 로직을 공통 메서드로 분리
+        // [핵심] 모든 전송 로직 (시간 결합 + 개수 업데이트 포함)
         private void SendMessage()
         {
-            // 4. 입력 방어: 앞뒤 공백을 제거한 후 내용이 있는지 확인
+            // 1. 공백 제거
             string typedMsg = txtBox.Text.Trim();
 
+            // 2. 내용 확인
             if (!string.IsNullOrWhiteSpace(typedMsg))
             {
-                // 리스트박스에 메시지 추가
-                listBox.Items.Add(typedMsg);
+                // 3. 시간 정보 결합
+                string currentTime = DateTime.Now.ToString("HH:mm:ss");
+                string messageWithTime = $"[{currentTime}] {typedMsg}";
 
-                // 1. 입력창의 기존 메시지 지우기
+                // 4. 리스트박스에 추가
+                listBox.Items.Add(messageWithTime);
+
+                // 5. [중요] 메시지 개수 실시간 업데이트
+                lblnum.Text = $"총 메시지: {listBox.Items.Count}개";
+
+                // 6. 마무리
                 txtBox.Clear();
-
-                // 2. 입력창에 입력 포커스 자동으로 갖다 놓기
                 txtBox.Focus();
             }
         }
 
-        // 버튼 클릭 시 호출
+        // 버튼 클릭 시
         private void btnInput_Click(object sender, EventArgs e)
         {
             SendMessage();
         }
 
-
+        // 텍스트박스에서 엔터키 입력 시
         private void txtBox_KeyDown(object sender, KeyEventArgs e)
         {
-            // 엔터키가 눌렸는지 검사
             if (e.KeyCode == Keys.Enter)
             {
-                // 버튼 클릭 시 실행되는 코드를 그대로 실행
-                string typedMsg = txtBox.Text.Trim();
-
-                if (!string.IsNullOrWhiteSpace(typedMsg))
-                {
-                    listBox.Items.Add(typedMsg);
-                    txtBox.Clear();
-                    txtBox.Focus();
-                }
+                // 엔터키를 쳤을 때도 SendMessage()를 실행해야 숫자가 바뀝니다!
+                SendMessage();
 
                 // '띵' 소리 방지
                 e.SuppressKeyPress = true;
